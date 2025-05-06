@@ -1,19 +1,51 @@
-//main.js
 const customTag = {
-    tagName: //value: 태그 이름
-    textContent: //value: 태그에 들어갈 텍스트
+    tagName: 'h2',
+    textContent: "나만의 태그",
     styles: {
-        color: //글자의 색
-        fontSize: //글자 크기
+        color: "orange",
+        fontSize: "2em",
     },
-    id: "", //태그의 id
-    class: [], //태그의 클래스들
-    changeTagName: , //태그의 tagName을 바꾸는 함수
-    changeTextContent: , //태그의 textContent를 바꾸는 함수
-    changeStyles: , //태그의 스타일을 바꾸는 함수
-    setId: , //태그의 아이디를 바꾸는 함수
-    addClassName: , //태그의 클래스 이름를 추가하는 함수
-    removeClassName: , //태그의 특정 클래스 이름를 제거하는 함수
+    id: "",
+    class: [],
+    changeTagName: function (tagName) {
+        this.tagName = tagName;
+        this.render('container');
+        return this;
+    },
+    changeTextContent: function (textContent) {
+        this.textContent = textContent;
+        this.render('container');
+        return this;
+    },
+    changeStyles: function (styleName, value) {
+        if (!this.styles[styleName]) {
+            console.error(`Style ${styleName} does not exist.`);
+            return this;
+        }
+        else {
+            this.styles[styleName] = value;
+            this.render('container');
+            return this;
+        }
+    },
+    setId: function (id) {
+        this.id = id;
+        this.render('container');
+        return this;
+    },
+    addClassName: function (className) {
+        this.class.push(className);
+        this.render('container');
+        return this;
+    },
+    removeClassName: function (className) {
+        const index = this.class.indexOf(className);
+        if (index !== -1) {
+            this.class.splice(index, 1);
+        }
+        this.render('container');
+        return this;
+    },
 
     // 여기 아래 부분은 수정하지 마시오.
     toHTML() {
